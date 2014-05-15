@@ -2,4 +2,4 @@
 
 Ubuntu sources.list file `/etc/apt/sources.list`
 
-![USLF](http://iuhoay.me/USLF)
+[USLF](http://iuhoay.me/USLF)

@@ -6,7 +6,6 @@
 
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
     <title>Ubuntu sources list by iuhoay</title>
   </head>
@@ -23,7 +22,8 @@
     <div class="container">
       <section id="main_content">
         <form id="f">
-          <input type="text" id="u" placeholder="http://archive.ubuntu.com/ubuntu" required >
+          <input type="text" id="u" placeholder="http://archive.ubuntu.com/ubuntu" required autofocus>
+          <select name="" id="v"></select>
           <input type="submit" id="g" value="G!">
         </form>
 <pre id="c">
@@ -41,9 +41,23 @@ deb-src http://security.ubuntu.com/ubuntu precise-security main universe
      by <a href="https://github.com/iuhoay/USLF">iuhoay</a>
     </footer>
 
-    
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
+      function $(id) {
+        return document.getElementById(id)
+      }
+
+      var $u = $("u"), $g = $("g"), $c = $("c"), $f = $("f"), $v = $("v");
+
+      var versions = {
+        "precise": "Precise Pangolin 12.04",
+        "lucid": "Lucid Lynx 10.04",
+        "trusty": "Trusty Tahr 14.04"
+      };
+
+      for (var v in versions) {
+        $v.appendChild(new Option(versions[v], v));
+      }
+
       function t(u, v) {
         return "deb " + u + " " + v + " main universe\n" +
                "deb " + u + " " + v + "-updates main universe\n" +
@@ -53,11 +67,14 @@ deb-src http://security.ubuntu.com/ubuntu precise-security main universe
                "deb-src " + u + " " + v + "-security main universe";
       }
 
-      var $u = $("#u"), $g = $("#g"), $c = $("#c"), $f = $("#f");
-      $f.on("submit", function() {
-        $c.html(t($u.val(), "precise"));
+      function change(u, v) {
+        $c.innerText = t(u, v);
+      }
+
+      $f.onsubmit = function() {
+        change($u.value, $v.value);
         return false;
-      });
+      }
     </script>
   </body>
 </html>

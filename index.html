@@ -42,37 +42,33 @@ deb-src http://security.ubuntu.com/ubuntu precise-security main universe
     </footer>
 
     <script type="text/javascript" charset="utf-8">
-      function $(id) {
+      var $ = function(id) {
         return document.getElementById(id)
-      }
-
-      var $u = $("u"), $g = $("g"), $c = $("c"), $f = $("f"), $v = $("v");
-
-      var versions = {
+      },
+      $u = $("u"), $g = $("g"), $c = $("c"), $f = $("f"), $v = $("v"),
+      versions = {
         "precise": "Precise Pangolin 12.04",
         "lucid": "Lucid Lynx 10.04",
         "trusty": "Trusty Tahr 14.04"
-      };
-
-      for (var v in versions) {
-        $v.appendChild(new Option(versions[v], v));
-      }
-
-      function t(u, v) {
+      },
+      t = function(u, v) {
         return "deb " + u + " " + v + " main universe\n" +
                "deb " + u + " " + v + "-updates main universe\n" +
                "deb " + u + " " + v + "-security main universe\n\n" +
                "deb-src " + u + " " + v + " main universe\n" +
                "deb-src " + u + " " + v + "-updates main universe\n" +
                "deb-src " + u + " " + v + "-security main universe";
-      }
-
-      function change(u, v) {
+      },
+      c = function(u, v) {
         $c.innerText = t(u, v);
+      };
+
+      for (var v in versions) {
+        $v.appendChild(new Option(versions[v], v));
       }
 
       $f.onsubmit = function() {
-        change($u.value, $v.value);
+        c($u.value, $v.value);
         return false;
       }
     </script>
